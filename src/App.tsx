@@ -18,6 +18,7 @@ function App() {
         {id: v1(), title: "React", isDone: false},
     ])
 
+
     const removeTask = (taskID: string) => {
         setTasks(tasks_1.filter(task => task.id !== taskID))//10 ms
         //console.log(tasks_1)//работает асинхронно
@@ -30,6 +31,11 @@ function App() {
         const copyTasks = [...tasks_1]
         copyTasks.push(newTask)
         setTasks(copyTasks)
+    }
+
+
+    const changeStatus = (taskID: string, isDone: boolean) => {
+        setTasks(tasks_1.map(task => task.id !== taskID ? task : {...task, isDone: isDone}))
     }
 
     const [filter, setFilter] = useState<"all" | "active" | "completed">("all")
@@ -55,7 +61,9 @@ function App() {
                 tasks={getTasksForTodoList()}
                 removeTask={removeTask}
                 changeFilter={changeFilter}
-                addTask={addTask}/>
+                addTask={addTask}
+                changeStatus={changeStatus}
+            />
         </div>
     );
 }
