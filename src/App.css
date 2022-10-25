@@ -1,32 +1,8 @@
 .App {
-    padding: 30px;
-    display: flex;
+  padding: 30px;
+  display: flex;
 }
 
 .App > div {
-    margin-right: 50px;
-}
-
-.isDone {
-    color: #355b14;
-    front-weight: bolt;
-    text-decoration: line-through;
-}
-
-.btn {
-    margin: 0 3px;
-}
-
-.btn-active {
-    background-color: #699bff;
-    color: white;
-    front-weight: bolt;
-    /*outline: #699bff;*/
-    border: 2px solid #699bff;
-    margin: 0 3px;
-}
-
-.error {
-    border: 2px solid rgba(176, 11, 55, 0.96);
-    outline: none;
+  margin-right: 50px;
 }
