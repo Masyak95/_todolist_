@@ -1,5 +1,6 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import {FilterValuesType} from "./App";
+import {AddItemForm} from "./AddItemForm";
 
 export type TaskType = {
     id: string
@@ -20,32 +21,6 @@ type PropsType = {
 }
 
 export function Todolist(props: PropsType) {
-    const [newTaskTitle, setNewTaskTitle] = useState("");
-    const [error, setError] = useState<string | null>(null)
-
-    const onNewTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log('newTaskTitle', newTaskTitle)
-        console.log('e', e)
-        console.log('e.current.value', e.currentTarget.value)
-        setNewTaskTitle(e.currentTarget.value)
-    }
-
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
-        if (e.key === "Enter") {
-            addTask();
-        }
-    }
-
-
-    const addTask = () => {
-        if (newTaskTitle.trim() !== "") {
-            props.addTask(newTaskTitle.trim(), props.id);
-            setNewTaskTitle("");
-        } else {
-            setError("Title is required")
-        }
-    }
 
     const onAllClickHandler = () => {
         props.changeFilter("all", props.id)
@@ -60,17 +35,11 @@ export function Todolist(props: PropsType) {
         props.removeTodolist(props.id)
     }
 
+
     return <div>
         <h3>{props.title}<button onClick={removeTodoList}>x</button></h3>
-        <div>
-            <input value={newTaskTitle}
-                   onChange={onNewTitleChangeHandler}
-                   onKeyPress={onKeyPressHandler}
-                   className={error ? "error" : ""}
-            />
-            <button onClick={addTask}>+</button>
-            {error && <div className={"error-message"}>{error}</div>}
-        </div>
+        // @ts-ignore
+       <AddItemForm addItem={props.addTask} id={props.id}/>
         <ul>
             {props.tasks.map((t) => {
                 const onRemoveHandler = () => {
@@ -113,3 +82,4 @@ export function Todolist(props: PropsType) {
         </div>
     </div>
 }
+
