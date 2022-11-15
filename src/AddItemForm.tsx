@@ -1,39 +1,40 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
-    id: string
 }
 
-export function AddItemForm(props: AddItemFormPropsType) {
-    const [newTaskTitle, setNewTaskTitle] = useState("");
-    const onNewTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setNewTaskTitle(e.currentTarget.value)
+const AddItemForm = (props: AddItemFormPropsType) => {
+    const [title, setTitle] = useState("")
+    const [error, setError] = useState<boolean>(false)
+    const onChangeSetLocalTitle = (e: ChangeEvent<HTMLInputElement>) => {
+        error && setError(false)
+        setTitle(e.currentTarget.value)
     }
-    const addTask = () => {
-        if (newTaskTitle.trim() !== "") {
-            props.addItem(newTaskTitle.trim());
-            setNewTaskTitle("");
+    const onKeyDownEnterAddItem =
+        (e: KeyboardEvent<HTMLInputElement>) => e.key === "Enter" && onClickAddItem()
+    const onClickAddItem = () => {
+        const trimmedTitle = title.trim()
+        if (trimmedTitle) {
+            props.addItem(trimmedTitle)
         } else {
-            setError("Title is required")
+            setError(true)
         }
-
+        setTitle("")
     }
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
-        if (e.key === "Enter") {
-            addTask();
-        }
-    }
-    const [error, setError] = useState<string | null>(null)
-    return <div>
 
-        <input value={newTaskTitle}
-               onChange={onNewTitleChangeHandler}
-               onKeyPress={onKeyPressHandler}
-               className={error ? "error" : ""}
-        />
-        <button onClick={addTask}>+</button>
-        {error && <div className={"error-message"}>{error}</div>}
-    </div>
-}
+    return (
+        <div>
+            <input
+                value={title}
+                onChange={onChangeSetLocalTitle}
+                onKeyDown={onKeyDownEnterAddItem}
+                className={error ? "error" : ""}
+            />
+            <button onClick={onClickAddItem}>+</button>
+            {error && <div style={{fontWeight: "bold", color: "hotpink"}}>Title is required</div>}
+        </div>
+    );
+};
+
+export default AddItemForm;
