@@ -3,7 +3,6 @@ import {FilterValuesType, TaskType} from "./App";
 import AddItemForm from "./AddItemForm";
 import EditableSpan from "./EditableSpan";
 import {Button, Checkbox, IconButton, List, TextField} from "@material-ui/core";
-import DeleteIcon from '@material-ui/icons/Delete';
 import { DeleteOutlineOutlined } from '@material-ui/icons';
 
 type TodoListPropsType = {
@@ -32,7 +31,7 @@ const TodoList = (props: TodoListPropsType) => {
                     const removeTask = () => props.removeTask(task.id, props.todoListId)
                     const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(task.id, e.currentTarget.checked, props.todoListId)
                     const changeTaskTitle = (nextTitle: string) => {
-                        props.changeTaskTitle(task.id, nextTitle, props.todoListId)
+                        props.changeTaskTitle(task.id, props.todoListId, nextTitle)
                     }
                     const isDoneClass = task.isDone ? "isDone" : ""
 

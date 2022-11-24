@@ -105,8 +105,9 @@ function App() {
         setTasks(copyTasks)
     }
     const changeTaskTitle = (taskID: string, todoListId: string, title: string) => {
+        debugger
         const tasksForUpdate: Array<TaskType> = tasks[todoListId]
-        const resultOfUpdate: Array<TaskType> = tasksForUpdate.map(t => t.id === title ? {...t, title: title} : t)
+        const resultOfUpdate: Array<TaskType> = tasksForUpdate.map(t => t.id === taskID ? {...t, title: title} : t)
         const copyTasks = {...tasks}
         copyTasks[todoListId] = resultOfUpdate
         setTasks(copyTasks)
