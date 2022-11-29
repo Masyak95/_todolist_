@@ -18,7 +18,7 @@ export type FilterValuesType = "all" | "active" | "completed"
 // Read => +, filtration
 // Update +
 // Delete +
-type TodoListType = {
+export type TodoListType = {
     id: string
     title: string
     filter: FilterValuesType
@@ -72,10 +72,7 @@ function App() {
         const copyTasks: TasksStateType = {...tasks}
         copyTasks[todoListId] = resultOfUpdate
         setTasks(copyTasks)
-        //
     }
-
-
     // const [filter, setFilter] = useState<FilterValuesType>("all")
     const changeTodoListFilter = (filter: FilterValuesType, todoListId: string) => {
         setTodoLists(todoLists.map(tl => tl.id === todoListId ? {...tl, filter: filter} : tl))
@@ -147,9 +144,7 @@ function App() {
                             changeTodoListTitle={changeTodoListTitle}
                         />
                     </Paper>
-
                 </Grid>
-
             )
         }
     )
@@ -172,9 +167,7 @@ function App() {
             <Container fixed style={{paddingTop: "20px"}}>
                 <Grid container><AddItemForm addItem={addTodoList}/></Grid>
                 <Grid container spacing={4}>{todoListsComponents}</Grid>
-
             </Container>
-
         </div>
     );
 }
