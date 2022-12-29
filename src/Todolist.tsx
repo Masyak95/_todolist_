@@ -2,10 +2,10 @@ import React, {ChangeEvent} from 'react';
 import {FilterValuesType, TaskType} from "./App";
 import AddItemForm from "./AddItemForm";
 import EditableSpan from "./EditableSpan";
-import {Button, Checkbox, IconButton, List, TextField} from "@material-ui/core";
+import {Button, Checkbox, IconButton, List} from "@material-ui/core";
 import { DeleteOutlineOutlined } from '@material-ui/icons';
 
-type TodoListPropsType = {
+export type TodoListPropsType = {
     todoListId: string
     title: string
     tasks: Array<TaskType>
