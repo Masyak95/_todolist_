@@ -3,12 +3,11 @@ import {IconButton, TextField} from "@mui/material";
 import {AddBox} from "@mui/icons-material";
 
 
-
 type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
 
-export function AddItemForm(props: AddItemFormPropsType) {
+export const AddItemForm= React.memo((props: AddItemFormPropsType)=>   {
 
     let [title, setTitle] = useState("")
     let [error, setError] = useState<string | null>(null)
@@ -27,8 +26,11 @@ export function AddItemForm(props: AddItemFormPropsType) {
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null);
-        if (e.charCode === 13) {
+        if (error !== null) {
+            setError(null);
+        }
+
+        if (e.key === 'Enter') {
             addItem();
         }
     }
@@ -43,7 +45,7 @@ export function AddItemForm(props: AddItemFormPropsType) {
                    helperText={error}
         />
         <IconButton color="primary" onClick={addItem}>
-            <AddBox />
+            <AddBox/>
         </IconButton>
     </div>
-}
+})
