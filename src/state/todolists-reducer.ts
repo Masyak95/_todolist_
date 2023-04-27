@@ -3,11 +3,13 @@ import {v1} from "uuid";
 
 export type RemoveTodolistsActionType = {
     type: 'REMOVE-TODOLIST',
-    id: string
+    id: string,
+
 }
 export type AddTodolistsActionType = {
     type: 'ADD-TODOLIST',
-    title: string
+    title: string,
+    todolistId: string
 }
 export type ChangeTodolistsTitleActionType = {
     type: 'CHANGE-TODOLIST-TITLE',
@@ -20,7 +22,11 @@ export type ChangeTodolistsFilterActionType = {
     filter: FilterValuesType
 }
 
-type ActionsType = RemoveTodolistsActionType | AddTodolistsActionType | ChangeTodolistsTitleActionType | ChangeTodolistsFilterActionType
+type ActionsType =
+    RemoveTodolistsActionType
+    | AddTodolistsActionType
+    | ChangeTodolistsTitleActionType
+    | ChangeTodolistsFilterActionType
 
 export const todolistsReducer = (state: TodolistType[], action: ActionsType): TodolistType[] => {
     switch (action.type) {
@@ -29,7 +35,7 @@ export const todolistsReducer = (state: TodolistType[], action: ActionsType): To
         }
         case 'ADD-TODOLIST': {
             return [...state, {
-                id: v1(),
+                id: action.todolistId,
                 title: action.title,
                 filter: "all"
             }]
@@ -39,14 +45,14 @@ export const todolistsReducer = (state: TodolistType[], action: ActionsType): To
             if (todolist) {
                 todolist.title = action.title;
             }
-            return [ ...state]
+            return [...state]
         }
         case 'CHANGE-TODOLIST-FILTER': {
             const todolist = state.find(tl => tl.id === action.id);
             if (todolist) {
                 todolist.filter = action.filter;
             }
-            return [ ...state]
+            return [...state]
         }
         default:
             throw new Error("I don't understand this type")
@@ -57,7 +63,7 @@ export const removeTodolistAC = (todolistId: string): RemoveTodolistsActionType 
     return {type: 'REMOVE-TODOLIST', id: todolistId}
 }
 export const addTodolistAC = (title: string): AddTodolistsActionType => {
-    return {type: 'ADD-TODOLIST', title: title}
+    return {type: 'ADD-TODOLIST', title: title, todolistId: v1()}
 }
 
 export const changeTodolistTitleAC = (id: string, title: string): ChangeTodolistsTitleActionType => {
